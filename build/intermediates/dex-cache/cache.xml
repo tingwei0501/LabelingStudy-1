@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\Jimmy\Desktop\LabelingStudy\minukucore\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="81aed69b7f6841d47eb6d4edbd0393fa2efe778d">
+        <dex dex="C:\Users\Jimmy\Desktop\LabelingStudy\app\build\intermediates\transforms\dex\debug\folders\1000\4\classes_5efa7393545ae5a08e61c67120bee5a9cc8435a5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Jimmy\Desktop\LabelingStudy\opencsv-3.10\opencsv-3.10.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ef5412b1c4d299e555b137c9a131cf019169c79b">
+        <dex dex="C:\Users\Jimmy\Desktop\LabelingStudy\app\build\intermediates\transforms\dex\debug\folders\1000\4\opencsv-3.10_759090e73b9be821e5dd58a784aadef33fe73f83\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Jimmy\Desktop\LabelingStudy\minuku2-extended\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="682ed2a4d8b2624200a2c8c2f520185fcbd2e1ea">
+        <dex dex="C:\Users\Jimmy\Desktop\LabelingStudy\app\build\intermediates\transforms\dex\debug\folders\1000\4\classes_97c92fb6fb8afea2e2f6fb67efd76c53e8f13fcd\classes.dex" />
+    </item>
+
+</items>
