@@ -41,7 +41,7 @@ public class home extends AppCompatActivity {
     private LayoutInflater mInflater;
 
     public static TextView counter;
-    public static String result;
+    public static String result, duration;
     public static String stoptime, starttime;
     private int tsec=0,csec=0,cmin=0,chour=0;
     public static boolean startflag = false;
@@ -298,11 +298,11 @@ public class home extends AppCompatActivity {
             // TODO Auto-generated method stub
             switch(v.getId()){
                 case R.id.btn_play:
-                    if(FirstPlayFlag){
+//                    if(FirstPlayFlag){
                         Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
                         starttime = formatter.format(curDate);
-                        FirstPlayFlag = false;
-                    }
+//                        FirstPlayFlag = false;
+//                    }
 
                     if(!startflag){ //play → pause
                         play.setImageResource(R.drawable.icon_pause);
@@ -332,7 +332,8 @@ public class home extends AppCompatActivity {
                     zeroflag=true;
                     Date curDate2 = new Date(System.currentTimeMillis()) ; // 獲取當前時間
                     stoptime = formatter.format(curDate2);
-                    result = starttime + " - " + stoptime + "\nduration: " + counter.getText().toString();
+                    result = starttime + " - " + stoptime  ;
+                    duration = "(" + counter.getText().toString() + ")";
                     Log.d(TAG, "recordflag: " + recordflag + ", counter:" + result);
 
                     Timeline mtimeline = new Timeline(mContext);

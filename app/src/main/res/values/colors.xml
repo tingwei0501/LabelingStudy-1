@@ -25,7 +25,7 @@
     <color name="colorPrimary">#418ECC</color>
     <color name="colorPrimaryDark">#2974BA</color>
     <color name="colorAccent">#747576</color>
-    <color name="colorPrimaryLight">#BDDEF5</color>
+    <color name="colorPrimaryLight">#bddef5</color>
     <color name="colorAccentLight">#BCBCBC</color>
     <color name="colorAccentDark">#1F1F1F</color>
 
@@ -42,7 +42,7 @@
     <color name ="accept_button">#8edaad</color>
     <color name="accent_lightest">#dcdbdb</color>
     <color name="common_plus_signin_btn_text_dark_pressed">#000000</color>
-
+    <color name="custom">#eaeef7</color>
 
 
 </resources>

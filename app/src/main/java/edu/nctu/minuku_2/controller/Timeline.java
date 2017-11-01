@@ -1,11 +1,15 @@
 package edu.nctu.minuku_2.controller;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,10 +29,13 @@ import java.util.concurrent.ExecutionException;
 
 import edu.nctu.minuku.logger.Log;
 import edu.nctu.minuku.manager.TripManager;
+import edu.nctu.minuku_2.MyDBHelper;
 import edu.nctu.minuku_2.R;
 
+import static edu.nctu.minuku_2.controller.home.duration;
 import static edu.nctu.minuku_2.controller.home.recordflag;
 import static edu.nctu.minuku_2.controller.home.result;
+import static edu.nctu.minuku_2.controller.timer_move.TrafficFlag;
 
 //import edu.ohio.minuku_2.R;
 
@@ -35,8 +43,12 @@ public class Timeline extends AppCompatActivity {
 
     public static ArrayList<String> myTimeDataset = new ArrayList<>();
     public static ArrayList<String> myActivityDataset = new ArrayList<>();
+    public static ArrayList<String> myTrafficDataset = new ArrayList<>();
     String TAG="Timeline";
     Context mContext;
+
+
+
 
     private RecyclerView listview;
     private int Trip_size;
@@ -72,7 +84,7 @@ public class Timeline extends AppCompatActivity {
 
         if(current_task.equals("PART")) {
             setDataListItems();
-            MyAdapter myAdapter = new MyAdapter(myTimeDataset, myActivityDataset);
+            MyAdapter myAdapter = new MyAdapter(myTimeDataset, myActivityDataset,myTrafficDataset);
             RecyclerView mList = (RecyclerView) findViewById(R.id.list_view);
             //initialize RecyclerView
 //            final View vitem = LayoutInflater.from(Timeline.this).inflate(R.layout.item_dialog, null);
@@ -100,7 +112,7 @@ public class Timeline extends AppCompatActivity {
                     locationDataRecords = new ListRecordAsyncTask().execute().get();
 
                 setDataListItems();
-                MyAdapter myAdapter = new MyAdapter(locationDataRecords, myActivityDataset);
+                MyAdapter myAdapter = new MyAdapter(locationDataRecords, myActivityDataset,myTrafficDataset);
                 RecyclerView mList = (RecyclerView) findViewById(R.id.list_view);
 
                 final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -126,11 +138,12 @@ public class Timeline extends AppCompatActivity {
 
     public void initTime(View v){
 
+
         String current_task = v.getResources().getString(R.string.current_task);
 
         if(current_task.equals("PART")) {
             setDataListItems();
-            MyAdapter myAdapter = new MyAdapter(myTimeDataset, myActivityDataset);
+            MyAdapter myAdapter = new MyAdapter(myTimeDataset, myActivityDataset,myTrafficDataset);
             RecyclerView mList = (RecyclerView) v.findViewById(R.id.list_view);
             //i
             // nitialize RecyclerView
@@ -159,7 +172,7 @@ public class Timeline extends AppCompatActivity {
                     locationDataRecords = new ListRecordAsyncTask().execute().get();
 
                 setDataListItems();
-                MyAdapter myAdapter = new MyAdapter(locationDataRecords, myActivityDataset);
+                MyAdapter myAdapter = new MyAdapter(locationDataRecords, myActivityDataset, myTrafficDataset);
                 RecyclerView mList = (RecyclerView) v.findViewById(R.id.list_view);
 
                 final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -208,27 +221,50 @@ public class Timeline extends AppCompatActivity {
         Log.d(TAG, "recordflag: " + recordflag);
         if(recordflag){
             myTimeDataset.add(result);
-            myActivityDataset.add("Order placed successfully");
+            myActivityDataset.add(duration);
+            myTrafficDataset.add(TrafficFlag);
+            //SQLite
+            // Init
+            MyDBHelper mHelper = new MyDBHelper(mContext);
+            SQLiteDatabase mDB = null;
+            // Insert by raw SQL
+            mDB = mHelper.getWritableDatabase();
+            String sql = "INSERT INTO Minuku (_Data) VALUES (\'" + result + "\')";
+            mDB.execSQL(sql);
+            Cursor cursor = mDB.rawQuery("SELECT _ID, _Data FROM Minuku", null);
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()) {
+                Log.e("SQLiteDBTestingActivity","_id = "+cursor.getInt(0));
+                Log.e("SQLiteDBTestingActivity","_Data = "+cursor.getString(1));
+                cursor.moveToNext();
+            }
+            cursor.close();
+            mDB.close();
+
             recordflag=false;
         }
 
     }
 
+
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-        private List<String> mTime, mActivity;
+        private List<String> mTime, mActivity, mTraffic;
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-            public TextView time, activity;
+            public TextView time, duration;
+            public ImageView traffic;
             public ViewHolder(View v) {
                 super(v);
                 time = (TextView) v.findViewById(R.id.tv_time);
-                activity = (TextView) v.findViewById(R.id.tv_activity);
+                duration = (TextView) v.findViewById(R.id.tv_duration);
+                traffic = (ImageView) v.findViewById(R.id.iv_traffic);
             }
         }
 
-        public MyAdapter(List<String> timedata, List<String> activitydata) {
+        public MyAdapter(List<String> timedata, List<String> activitydata, List<String> trafficdata) {
             mTime = timedata;
             mActivity = activitydata;
+            mTraffic = trafficdata;
         }
 
         @Override
@@ -245,7 +281,14 @@ public class Timeline extends AppCompatActivity {
 //            item =
 
             holder.time.setText(mTime.get(position));
-            holder.activity.setText(mActivity.get(position));
+            holder.duration.setText(mActivity.get(position));
+            if(mTraffic.get(position).equals("walk")){
+                holder.traffic.setImageResource(R.drawable.walk);
+            }else if(mTraffic.get(position).equals("bike")){
+                holder.traffic.setImageResource(R.drawable.bike);
+            }else if(mTraffic.get(position).equals("car")){
+                holder.traffic.setImageResource(R.drawable.car);
+            }
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

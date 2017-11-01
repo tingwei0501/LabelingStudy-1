@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="support-compat-24.2.1">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/e1ea4bfe2ab8fb11f85b06edf1f0f6841a6b4692/output/jars/libs/internal_impl-24.2.1.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/e1ea4bfe2ab8fb11f85b06edf1f0f6841a6b4692/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/e1ea4bfe2ab8fb11f85b06edf1f0f6841a6b4692/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/851f7377162ffcab9aab8e9f55ab6ab757b5b38a/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/851f7377162ffcab9aab8e9f55ab6ab757b5b38a/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/851f7377162ffcab9aab8e9f55ab6ab757b5b38a/output/jars/libs/internal_impl-24.2.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-compat/24.2.1/support-compat-24.2.1-sources.jar!/" />
+      <root url="jar://$USER_HOME$/Android/Sdk/extras/android/m2repository/com/android/support/support-compat/24.2.1/support-compat-24.2.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

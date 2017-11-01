@@ -3,30 +3,30 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\Jimmy\Desktop\LabelingStudy\minukucore\build\intermediates\bundles\default\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="81aed69b7f6841d47eb6d4edbd0393fa2efe778d">
-        <dex dex="C:\Users\Jimmy\Desktop\LabelingStudy\app\build\intermediates\transforms\dex\debug\folders\1000\4\classes_5efa7393545ae5a08e61c67120bee5a9cc8435a5\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Jimmy\Desktop\LabelingStudy\opencsv-3.10\opencsv-3.10.jar"
+        jar="C:\Users\Jimmy\Desktop\MUIlab\temp_Labeling-master\opencsv-3.10\opencsv-3.10.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
         sha1="ef5412b1c4d299e555b137c9a131cf019169c79b">
-        <dex dex="C:\Users\Jimmy\Desktop\LabelingStudy\app\build\intermediates\transforms\dex\debug\folders\1000\4\opencsv-3.10_759090e73b9be821e5dd58a784aadef33fe73f83\classes.dex" />
+        <dex dex="C:\Users\Jimmy\Desktop\MUIlab\temp_Labeling-master\app\build\intermediates\transforms\dex\debug\folders\1000\4\opencsv-3.10_1b46490612635f4df114fbc95b84f0cfe907b2d1\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Jimmy\Desktop\LabelingStudy\minuku2-extended\build\intermediates\bundles\default\classes.jar"
+        jar="C:\Users\Jimmy\Desktop\MUIlab\temp_Labeling-master\minukucore\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="81aed69b7f6841d47eb6d4edbd0393fa2efe778d">
+        <dex dex="C:\Users\Jimmy\Desktop\MUIlab\temp_Labeling-master\app\build\intermediates\transforms\dex\debug\folders\1000\4\classes_ddcdfa692fcd2bc8d8f53da08ca858cb6990f29a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Jimmy\Desktop\MUIlab\temp_Labeling-master\minuku2-extended\build\intermediates\bundles\default\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="25.0.0"
         sha1="682ed2a4d8b2624200a2c8c2f520185fcbd2e1ea">
-        <dex dex="C:\Users\Jimmy\Desktop\LabelingStudy\app\build\intermediates\transforms\dex\debug\folders\1000\4\classes_97c92fb6fb8afea2e2f6fb67efd76c53e8f13fcd\classes.dex" />
+        <dex dex="C:\Users\Jimmy\Desktop\MUIlab\temp_Labeling-master\app\build\intermediates\transforms\dex\debug\folders\1000\4\classes_29885fb7c257dafe93fc117849f1f6696294ad8b\classes.dex" />
     </item>
 
 </items>
