@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '26.0.2'
 
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
@@ -69,7 +69,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:24.0.0'
     compile 'com.android.support:recyclerview-v7:24.0.0'
     compile 'com.google.android.gms:play-services-maps:9.2.1'
-    compile 'com.android.support:multidex-instrumentation:1.0.1'
+    compile 'com.android.support:multidex-instrumentation:1.0.2'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.vipulasri:timelineview:1.0.5'
     testCompile 'junit:junit:4.12'
@@ -81,5 +81,6 @@ allprojects {
     repositories {
         jcenter()
         maven { url "https://jitpack.io" }
+        google()
     }
 }

@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
         SettingViewPager();
 
-        startService(new Intent(getBaseContext(), BackgroundService.class));
+        /*startService(new Intent(getBaseContext(), BackgroundService.class));
 //        startService(new Intent(getBaseContext(), ExpSampleMethodService.class));
         startService(new Intent(getBaseContext(), CheckpointAndReminderService.class));
 
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
             checkAndRequestPermissions();
         }else{
             startServiceWork();
-        }
+        }*/
 
         Object dataTransfer[] = new Object[1];
 
