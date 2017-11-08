@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="edu.nctu.minuku_2.controller.PlaceSelection"
+    tools:context="LabelingStudy.nctu.minuku_2.controller.PlaceSelection"
     android:weightSum="1">
 <!--
     <com.google.android.gms.maps.MapView
@@ -22,6 +22,16 @@
         android:layout_weight="0.83" />
 
     <Button
+        android:id="@+id/btn_addplace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/instabug_annotation_color_yellow"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:text="一餐"
+        android:textSize="24sp" />
+
+    <!--Button
         android:id="@+id/btn_addplace"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,5 +53,5 @@
         android:id="@+id/btn_third"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="工程三館" />
+        android:text="工程三館" /-->
 </LinearLayout>
