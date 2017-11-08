@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.nctu.minuku_2.controller.Counter">
+    tools:context="LabelingStudy.nctu.minuku_2.controller.Counter">
 
     <LinearLayout
         android:layout_width="match_parent"

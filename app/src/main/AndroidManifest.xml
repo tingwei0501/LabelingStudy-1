@@ -21,7 +21,7 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="edu.nctu.minuku_2">
+    package="LabelingStudy.nctu.minuku_2">
 
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
@@ -49,7 +49,7 @@
         android:required="true" />
 
     <application xmlns:tools="http://schemas.android.com/tools"
-        android:name=".MinukuApp"
+        android:name="LabelingStudy.nctu.minuku_2.MinukuApp"
         android:allowBackup="true"
         android:icon="@drawable/self_reflection"
         android:label="@string/app_name"
@@ -62,7 +62,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC43nMAk_Vmpq4mu8h7wGMcOkQCiZmA2co" />
+            android:value="AIzaSyDNWjTqYe9J1Nvse0IbVLciBycQGouZtUQ" />
         <!-- It would -->
 
 
@@ -73,13 +73,14 @@
             android:value="AIzaSyCiV1bU3lnapK7kJJh-C1DIsGCZsf8JK8o" />
         -->
 
-        <activity android:name=".controller.report" />
-        <activity android:name=".controller.PlaceSelection" />
-        <activity android:name=".controller.home" />
-        <activity android:name=".controller.timer_move" />
-        <activity android:name=".controller.timer_site" />
+        <activity android:name="LabelingStudy.nctu.minuku_2.controller.CheckPointActivity" />
+        <activity android:name="LabelingStudy.nctu.minuku_2.controller.report" />
+        <activity android:name="LabelingStudy.nctu.minuku_2.controller.PlaceSelection" />
+        <activity android:name="LabelingStudy.nctu.minuku_2.controller.home" />
+        <activity android:name="LabelingStudy.nctu.minuku_2.controller.timer_move" />
+        <activity android:name="LabelingStudy.nctu.minuku_2.controller.timer_site" />
         <activity
-            android:name=".WelcomeActivity"
+            android:name="LabelingStudy.nctu.minuku_2.WelcomeActivity"
             android:launchMode="singleInstance"
             android:persistent="true">
             <intent-filter>
@@ -189,24 +190,24 @@
         <activity android:name="com.desmond.squarecamera.CameraActivity" />
 
         <service
-            android:name=".service.ExpSampleMethodService"
+            android:name="LabelingStudy.nctu.minuku_2.service.ExpSampleMethodService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".service.CheckpointAndReminderService"
+            android:name="LabelingStudy.nctu.minuku_2.service.CheckpointAndReminderService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".service.BackgroundService"
+            android:name="LabelingStudy.nctu.minuku_2.service.BackgroundService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name="edu.nctu.minuku.manager.MinukuNotificationManager"
+            android:name="LabelingStudy.nctu.minuku.manager.MinukuNotificationManager"
             android:enabled="true"
             android:exported="true" />
 
         <receiver
-            android:name=".BootCompleteReceiver"
+            android:name="LabelingStudy.nctu.minuku_2.BootCompleteReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -214,14 +215,14 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".Receiver.ConnectivityChangeReceiver"
+            android:name="LabelingStudy.nctu.minuku_2.Receiver.ConnectivityChangeReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".Receiver.WifiReceiver"
+            android:name="LabelingStudy.nctu.minuku_2.Receiver.WifiReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -235,8 +236,8 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".controller.Counter" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name="LabelingStudy.nctu.minuku_2.controller.Counter" />
+        <activity android:name="LabelingStudy.nctu.minuku_2.MainActivity"></activity>
     </application>
 
 </manifest>

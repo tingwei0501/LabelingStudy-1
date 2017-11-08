@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.nctu.minukucore">
+    package="LabelingStudy.nctu.minukucore">
 
     <application
         android:allowBackup="true"
