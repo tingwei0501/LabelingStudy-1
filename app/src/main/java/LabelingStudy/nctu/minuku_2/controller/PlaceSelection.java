@@ -118,7 +118,7 @@ public class PlaceSelection extends FragmentActivity implements OnMapReadyCallba
                 LatLng latLng = new LatLng(lat, lng);
 
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
-                map.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+                map.addMarker(new MarkerOptions().position(latLng).title("您的位置"));
 
 
                 //TODO make the neighbor list

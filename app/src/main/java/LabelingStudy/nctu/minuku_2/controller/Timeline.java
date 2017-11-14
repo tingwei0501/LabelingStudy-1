@@ -271,8 +271,6 @@ public class Timeline extends AppCompatActivity {
         @Override
         public void onBindViewHolder(ViewHolder holder, final int position) {
 
-//            item =
-
             holder.time.setText(mTime.get(position));
             holder.duration.setText(mActivity.get(position));
 
