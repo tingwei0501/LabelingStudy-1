@@ -20,7 +20,7 @@
  * No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
  */
 
-package LabelingStudy.nctu.minuku_2;
+package edu.nctu.minuku_2;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -28,6 +28,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.Settings;
@@ -49,6 +50,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
@@ -60,23 +62,20 @@ import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import LabelingStudy.nctu.minuku.config.Constants;
-import LabelingStudy.nctu.minuku.event.DecrementLoadingProcessCountEvent;
-import LabelingStudy.nctu.minuku.event.IncrementLoadingProcessCountEvent;
-import LabelingStudy.nctu.minuku.logger.Log;
-import LabelingStudy.nctu.minuku_2.NearbyPlaces.GetNearbyPlacesData;
-import LabelingStudy.nctu.minuku_2.NearbyPlaces.GetUrl;
-import LabelingStudy.nctu.minuku_2.controller.CheckPointActivity;
-import LabelingStudy.nctu.minuku_2.controller.Timeline;
-import LabelingStudy.nctu.minuku_2.controller.home;
-import LabelingStudy.nctu.minuku_2.controller.report;
+import edu.nctu.minuku.config.Constants;
+import edu.nctu.minuku.event.DecrementLoadingProcessCountEvent;
+import edu.nctu.minuku.event.IncrementLoadingProcessCountEvent;
+import edu.nctu.minuku.logger.Log;
+import edu.nctu.minuku_2.controller.Timeline;
+import edu.nctu.minuku_2.controller.home;
+import edu.nctu.minuku_2.controller.report;
+import edu.nctu.minuku_2.service.BackgroundService;
+
+import static android.support.v4.app.ActivityCompat.startActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-
-    private String current_task;
-
     //private TextView compensationMessage;
     private AtomicInteger loadingProcessCount = new AtomicInteger(0);
     private ProgressDialog loadingProgressDialog;
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     public static String task="PART"; //default is PART
     ArrayList viewList;
     public final int REQUEST_ID_MULTIPLE_PERMISSIONS=1;
-    public static View timerview,recordview,checkpointview;
+    public static View timerview,recordview,deviceIdview;
 
     public static android.support.design.widget.TabLayout mTabs;
     public static ViewPager mViewPager;
@@ -113,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     public static final int BACKGROUND_RECORDING_INITIAL_DELAY = 0;
     //private UserSubmissionStats mUserSubmissionStats;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,25 +125,24 @@ public class MainActivity extends AppCompatActivity {
         Log.e(TAG,"start");
 
         setContentView(R.layout.activity_main);
-
         final LayoutInflater mInflater = getLayoutInflater().from(this);
         timerview = mInflater.inflate(R.layout.home, null);
         recordview = mInflater.inflate(R.layout.activity_timeline, null);
-        checkpointview = mInflater.inflate(R.layout.checkpoint_activity, null);
 
-        current_task = getResources().getString(R.string.current_task);
 
-        if(current_task.equals("PART")) {
-            initViewPager(timerview, recordview);
-        }else{
-            initViewPager(checkpointview, recordview);
-        }
 
+
+//
+        initViewPager(timerview,recordview);
         SettingViewPager();
-        /*startService(new Intent(getBaseContext(), BackgroundService.class));
-//        startService(new Intent(getBaseContext(), ExpSampleMethodService.class));
-        startService(new Intent(getBaseContext(), CheckpointAndReminderService.class));
 
+
+        startService(new Intent(getBaseContext(), BackgroundService.class));
+        startpermission();
+        //startService(new Intent(getBaseContext(), MinukuNotificationManager.class));
+        //startService(new Intent(getBaseContext(), DiaryNotificationService.class));  might be useless for us
+
+        //UUID dummyUUID = UUID.randomUUID();
         EventBus.getDefault().register(this);
 
         int sdk_int = Build.VERSION.SDK_INT;
@@ -151,9 +150,10 @@ public class MainActivity extends AppCompatActivity {
             checkAndRequestPermissions();
         }else{
             startServiceWork();
-        }*/
+        }
 
     }
+
 
     public void createShortCut(){
         Intent shortcutintent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
@@ -198,13 +198,15 @@ public class MainActivity extends AppCompatActivity {
 
     public void startpermission(){
         //Maybe useless in this project.
-//                    startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));  // 協助工具
+        //startActivity(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS));  // 協助工具
+        Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+        startActivity(intent);  // 協助工具
 
         Intent intent1 = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);  //usage
         startActivity(intent1);
 
-//                    Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS); //notification
-//                    startActivity(intent);
+     /*               Intent intent2 = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS); //notification
+                    startActivity(intent2);*/
 
         startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));	//location
     }
@@ -222,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         mTabs.addTab(mTabs.newTab().setText("紀錄"));
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        timerview.setTag(Constant.home_tag);
+        //timerview.setTag(Constant.home_tag);
 
 
     }
@@ -405,17 +407,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void SettingViewPager() {
         viewList = new ArrayList<View>();
-
-        if(current_task.equals("PART")) {
-            viewList.add(timerview);
-        }else{
-            viewList.add(checkpointview);
-        }
-
+        viewList.add(timerview);
         viewList.add(recordview);
 
         mViewPager.setAdapter(new TimerOrRecordPagerAdapter(viewList, this));
-
+        mTabs.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabs));
         //TODO date button now can show on menu when switch to recordview, but need to determine where to place the date textview(default is today's date).
         mTabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -428,7 +424,6 @@ public class MainActivity extends AppCompatActivity {
                 else
                     //hide date on menu
                     Constant.tabpos = false;
-
                 invalidateOptionsMenu();
             }
 
@@ -553,22 +548,13 @@ public class MainActivity extends AppCompatActivity {
             switch (position){
                 case 0: //timer
 
-                    if(current_task.equals("PART")) {
                         home mhome = new home(mContext);
                         mhome.inithome(timerview);
-                    }else{
-                        CheckPointActivity checkPointActivity = new CheckPointActivity(mContext);
-                        checkPointActivity.initCheckPoint(checkpointview);
-                    }
 
                     break;
                 case 1: //report
-//                    record mrecord = new record(mContext);
-//                    mrecord.initrecord(recordview);
-                    Timeline timeline = new Timeline();
-                    timeline.initTime(recordview);
-//                    Timeline timeline = new Timeline();
-
+                    Timeline mtimeline = new Timeline(mContext);
+                    mtimeline.initTime(recordview);
                     break;
             }
 
@@ -590,4 +576,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+
 }

@@ -20,7 +20,7 @@
  * No additional restrictions — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
  */
 
-package LabelingStudy.nctu.minuku_2.manager;
+package edu.nctu.minuku_2.manager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -33,36 +33,45 @@ import java.util.Date;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-import LabelingStudy.nctu.minuku.DBHelper.DBHelper;
-import LabelingStudy.nctu.minuku.dao.ActivityRecognitionDataRecordDAO;
-import LabelingStudy.nctu.minuku.dao.AppUsageDataRecordDAO;
-import LabelingStudy.nctu.minuku.dao.BatteryDataRecordDAO;
-import LabelingStudy.nctu.minuku.dao.ConnectivityDataRecordDAO;
-import LabelingStudy.nctu.minuku.dao.LocationDataRecordDAO;
-import LabelingStudy.nctu.minuku.dao.RingerDataRecordDAO;
-import LabelingStudy.nctu.minuku.dao.TransportationModeDAO;
-import LabelingStudy.nctu.minuku.dao.UserSubmissionStatsDAO;
-import LabelingStudy.nctu.minuku.event.DecrementLoadingProcessCountEvent;
-import LabelingStudy.nctu.minuku.event.IncrementLoadingProcessCountEvent;
-import LabelingStudy.nctu.minuku.logger.Log;
-import LabelingStudy.nctu.minuku.manager.MinukuDAOManager;
-import LabelingStudy.nctu.minuku.manager.MinukuSituationManager;
-import LabelingStudy.nctu.minuku.model.DataRecord.ActivityRecognitionDataRecord;
-import LabelingStudy.nctu.minuku.model.DataRecord.AppUsageDataRecord;
-import LabelingStudy.nctu.minuku.model.DataRecord.BatteryDataRecord;
-import LabelingStudy.nctu.minuku.model.DataRecord.ConnectivityDataRecord;
-import LabelingStudy.nctu.minuku.model.DataRecord.LocationDataRecord;
-import LabelingStudy.nctu.minuku.model.DataRecord.RingerDataRecord;
-import LabelingStudy.nctu.minuku.model.DataRecord.TransportationModeDataRecord;
-import LabelingStudy.nctu.minuku.model.UserSubmissionStats;
-import LabelingStudy.nctu.minuku.streamgenerator.ActivityRecognitionStreamGenerator;
-import LabelingStudy.nctu.minuku.streamgenerator.AppUsageStreamGenerator;
-import LabelingStudy.nctu.minuku.streamgenerator.BatteryStreamGenerator;
-import LabelingStudy.nctu.minuku.streamgenerator.ConnectivityStreamGenerator;
-import LabelingStudy.nctu.minuku.streamgenerator.LocationStreamGenerator;
-import LabelingStudy.nctu.minuku.streamgenerator.RingerStreamGenerator;
-import LabelingStudy.nctu.minuku.streamgenerator.TransportationModeStreamGenerator;
-import LabelingStudy.nctu.minuku_2.question.QuestionConfig;
+import edu.nctu.minuku.DBHelper.DBHelper;
+import edu.nctu.minuku.dao.AccessibilityDataRecordDAO;
+import edu.nctu.minuku.dao.ActivityRecognitionDataRecordDAO;
+import edu.nctu.minuku.dao.AppUsageDataRecordDAO;
+import edu.nctu.minuku.dao.BatteryDataRecordDAO;
+import edu.nctu.minuku.dao.ConnectivityDataRecordDAO;
+import edu.nctu.minuku.dao.LocationDataRecordDAO;
+import edu.nctu.minuku.dao.RingerDataRecordDAO;
+import edu.nctu.minuku.dao.SensorDataRecordDAO;
+import edu.nctu.minuku.dao.TelephonyDataRecordDAO;
+import edu.nctu.minuku.dao.TransportationModeDAO;
+import edu.nctu.minuku.dao.UserSubmissionStatsDAO;
+import edu.nctu.minuku.event.DecrementLoadingProcessCountEvent;
+import edu.nctu.minuku.event.IncrementLoadingProcessCountEvent;
+import edu.nctu.minuku.logger.Log;
+import edu.nctu.minuku.manager.MinukuDAOManager;
+import edu.nctu.minuku.manager.MinukuSituationManager;
+import edu.nctu.minuku.model.DataRecord.AccessibilityDataRecord;
+import edu.nctu.minuku.model.DataRecord.ActivityRecognitionDataRecord;
+import edu.nctu.minuku.model.DataRecord.AppUsageDataRecord;
+import edu.nctu.minuku.model.DataRecord.BatteryDataRecord;
+import edu.nctu.minuku.model.DataRecord.ConnectivityDataRecord;
+import edu.nctu.minuku.model.DataRecord.LocationDataRecord;
+import edu.nctu.minuku.model.DataRecord.RingerDataRecord;
+import edu.nctu.minuku.model.DataRecord.SensorDataRecord;
+import edu.nctu.minuku.model.DataRecord.TelephonyDataRecord;
+import edu.nctu.minuku.model.DataRecord.TransportationModeDataRecord;
+import edu.nctu.minuku.model.UserSubmissionStats;
+import edu.nctu.minuku.streamgenerator.AccessibilityStreamGenerator;
+import edu.nctu.minuku.streamgenerator.ActivityRecognitionStreamGenerator;
+import edu.nctu.minuku.streamgenerator.AppUsageStreamGenerator;
+import edu.nctu.minuku.streamgenerator.BatteryStreamGenerator;
+import edu.nctu.minuku.streamgenerator.ConnectivityStreamGenerator;
+import edu.nctu.minuku.streamgenerator.LocationStreamGenerator;
+import edu.nctu.minuku.streamgenerator.RingerStreamGenerator;
+import edu.nctu.minuku.streamgenerator.SensorStreamGenerator;
+import edu.nctu.minuku.streamgenerator.TelephonyStreamGenerator;
+import edu.nctu.minuku.streamgenerator.TransportationModeStreamGenerator;
+import edu.nctu.minuku_2.question.QuestionConfig;
 
 /**
  * Created by neerajkumar on 8/28/16.
@@ -165,6 +174,14 @@ public class InstanceManager {
         AppUsageDataRecordDAO appUsageDataRecordDAO = new AppUsageDataRecordDAO(getApplicationContext());
         daoManager.registerDaoFor(AppUsageDataRecord.class, appUsageDataRecordDAO);
 
+        TelephonyDataRecordDAO telephonyDataRecordDAO = new TelephonyDataRecordDAO(getApplicationContext());
+        daoManager.registerDaoFor(TelephonyDataRecord.class, telephonyDataRecordDAO);
+
+        AccessibilityDataRecordDAO accessibilityDataRecordDAO = new AccessibilityDataRecordDAO(getApplicationContext());
+        daoManager.registerDaoFor(AccessibilityDataRecord.class, accessibilityDataRecordDAO);
+
+        SensorDataRecordDAO sensorDataRecordDAO = new SensorDataRecordDAO(getApplicationContext());
+        daoManager.registerDaoFor(SensorDataRecord.class, sensorDataRecordDAO);
 
         // Create corresponding stream generators. Only to be created once in Main Activity
         //creating a new stream registers it with the stream manager
@@ -199,6 +216,15 @@ public class InstanceManager {
 
         AppUsageStreamGenerator appUsageStreamGenerator =
                 new AppUsageStreamGenerator(getApplicationContext());
+
+        TelephonyStreamGenerator telephonyStreamGenerator =
+                new TelephonyStreamGenerator(getApplicationContext());
+
+        AccessibilityStreamGenerator accessibilityStreamGenerator =
+                new AccessibilityStreamGenerator(getApplicationContext());
+
+        SensorStreamGenerator sensorStreamGenerator =
+                new SensorStreamGenerator(getApplicationContext());
 
         // All situations must be registered AFTER the stream generators are registers.
         MinukuSituationManager situationManager = MinukuSituationManager.getInstance();
@@ -235,7 +261,7 @@ public class InstanceManager {
                 //
                 try {
                     Log.d(LOG_TAG, "initialize: getting mUserSubmissionStats from future ");
-                     mUserSubmissionStats = submissionStatsFuture.get();
+                    mUserSubmissionStats = submissionStatsFuture.get();
                     //date check - ensuring that every day we have a new instance of submission
                     // stats. Needs to be tested
 
@@ -266,12 +292,12 @@ public class InstanceManager {
     }
 
     public UserSubmissionStats getUserSubmissionStats() {
-            if((mUserSubmissionStats == null) || !areDatesEqual((new Date().getTime()), mUserSubmissionStats.getCreationTime())) {
-                if(mUserSubmissionStats == null)
-                    Log.d(LOG_TAG, "getUserSubmissionStats: userSubmissionStats is null");
+        if((mUserSubmissionStats == null) || !areDatesEqual((new Date().getTime()), mUserSubmissionStats.getCreationTime())) {
+            if(mUserSubmissionStats == null)
+                Log.d(LOG_TAG, "getUserSubmissionStats: userSubmissionStats is null");
 
-                Log.d(LOG_TAG, "getUserSubmissionStats: userSubmissionStats is either null or we have a new date." +
-                                "Creating new userSubmissionStats object");
+            Log.d(LOG_TAG, "getUserSubmissionStats: userSubmissionStats is either null or we have a new date." +
+                    "Creating new userSubmissionStats object");
             mUserSubmissionStats = new UserSubmissionStats();
         }
         return mUserSubmissionStats;
